@@ -1,0 +1,580 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    color: #2c3e50;
+    min-height: 100vh;
+}
+
+/* Container inicial */
+.container-inicial {
+    min-height: 100vh;
+    display: block;
+    position: relative;
+    padding-bottom: 80px;
+}
+
+/* Header inicial */
+.header-inicial {
+    background: linear-gradient(135deg, #2E86AB 0%, #1B4F72 100%);
+    color: white;
+    padding: 25px 20px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.header-inicial h1 {
+    font-size: 28px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+/* Main inicial */
+.main-inicial {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.conteudo-central h2 {
+    font-size: 32px;
+    color: #2E86AB;
+    margin-bottom: 15px;
+}
+
+.conteudo-central p {
+    font-size: 18px;
+    margin-bottom: 40px;
+    color: #666;
+}
+
+/* Botões */
+.botoes-inicial {
+    margin-top: 30px;
+}
+
+.botao {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #2E86AB;
+    color: white;
+    text-decoration: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px;
+    border-radius: 6px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+}
+
+.botao:hover {
+    background-color: #1B4F72;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transform: translateY(-2px);
+}
+
+.botao-sobre {
+    background-color: #2E86AB;
+}
+
+.botao-sobre:hover {
+    background-color: #1B4F72;
+}
+
+.botao-pequeno {
+    padding: 8px 20px;
+    font-size: 14px;
+}
+
+.botao-entrar,
+.botao-marcar {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+}
+
+.botao-voltar {
+    background-color: #666;
+}
+
+.botao-voltar:hover {
+    background-color: #555;
+}
+
+/* Footer */
+.footer-inicial {
+    background: linear-gradient(135deg, #2E86AB 0%, #1B4F72 100%);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+    margin-top: 40px;
+}
+
+.container-inicial .footer-inicial {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    margin-top: 0;
+}
+
+/* Container Login */
+.container-login {
+    min-height: 100vh;
+    display: block;
+    position: relative;
+    padding-bottom: 80px;
+}
+
+.main-login {
+    padding: 60px 20px;
+    display: block;
+    text-align: center;
+}
+
+.container-login .footer-inicial {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    margin-top: 0;
+}
+
+.login-box {
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+.login-box h2 {
+    color: #2E86AB;
+    margin-bottom: 25px;
+    font-size: 24px;
+}
+
+/* Formulários */
+.campo-form {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.campo-form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: bold;
+}
+
+.campo-form input,
+.campo-form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.campo-form input:focus,
+.campo-form select:focus {
+    outline: none;
+    border-color: #2E86AB;
+    box-shadow: 0 0 0 3px rgba(46, 134, 171, 0.1);
+}
+
+.links-login {
+    margin-top: 20px;
+}
+
+.links-login a {
+    color: #2E86AB;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.links-login a:hover {
+    text-decoration: underline;
+}
+
+/* Sobre */
+.main-sobre {
+    padding: 40px 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.conteudo-sobre {
+    max-width: 800px;
+    margin: 60px auto 40px;
+    padding: 40px 20px;
+    text-align: left;
+}
+
+.conteudo-sobre h2 {
+    color: #2E86AB;
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.conteudo-sobre h3 {
+    color: #2E86AB;
+    font-size: 22px;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+.conteudo-sobre p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+.conteudo-sobre ul {
+    margin-left: 30px;
+    margin-bottom: 25px;
+}
+
+.conteudo-sobre li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.botoes-sobre {
+    margin-top: 30px;
+    text-align: center;
+}
+
+/* Dashboard */
+.container-dashboard {
+    min-height: 100vh;
+    display: block;
+}
+
+.header-dashboard {
+    background: linear-gradient(135deg, #2E86AB 0%, #1B4F72 100%);
+    color: white;
+    padding: 0 20px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: 60px;
+    line-height: 60px;
+}
+
+.logo-dashboard {
+    float: left;
+}
+
+.logo-dashboard h1 {
+    font-size: 24px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    margin: 0;
+    line-height: 60px;
+}
+
+.usuario-info {
+    float: right;
+    line-height: 60px;
+}
+
+/* Conteúdo Principal */
+.conteudo-principal {
+    overflow: hidden;
+    display: block;
+    margin-top: 60px;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: #2E86AB;
+    float: left;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    bottom: 0;
+    height: calc(100vh - 60px);
+    box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+    z-index: 999;
+}
+
+.menu-lateral ul {
+    list-style: none;
+    padding: 0;
+}
+
+.menu-lateral li {
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.menu-lateral a {
+    display: block;
+    padding: 15px 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.menu-lateral a:hover {
+    background-color: rgba(255,255,255,0.15);
+    padding-left: 25px;
+}
+
+.menu-lateral a.ativo {
+    background-color: #1B4F72;
+    font-weight: bold;
+    border-left: 4px solid white;
+    padding-left: 16px;
+}
+
+.menu-lateral a.ativo:hover {
+    padding-left: 16px;
+}
+
+/* Main Dashboard */
+.main-dashboard {
+    margin-left: 250px;
+    margin-top: 60px;
+    padding: 30px;
+    background-color: #f8f9fa;
+    min-height: calc(100vh - 60px);
+}
+
+.main-dashboard h2 {
+    color: #2E86AB;
+    font-size: 26px;
+    margin-bottom: 20px;
+}
+
+.main-dashboard p {
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+/* Lista de Atividades */
+.lista-atividades {
+    margin-top: 20px;
+}
+
+.atividade-item {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-left: 4px solid #2E86AB;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.atividade-item:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+}
+
+.atividade-item h3 {
+    color: #2E86AB;
+    margin-bottom: 10px;
+}
+
+.atividade-item p {
+    margin-bottom: 8px;
+}
+
+.status-pendente {
+    color: #ff9800;
+    font-weight: bold;
+}
+
+.status-em-andamento {
+    color: #2196f3;
+    font-weight: bold;
+}
+
+.status-concluido {
+    color: #4caf50;
+    font-weight: bold;
+}
+
+/* Lista de Turmas */
+.lista-turmas {
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+.turma-item {
+    background-color: white;
+    padding: 18px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    border-left: 4px solid #2E86AB;
+    border-radius: 6px;
+    width: 302px;
+    float: left;
+    min-height: 175px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.turma-item:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+}
+
+.turma-item h3 {
+    color: #2E86AB;
+    margin-bottom: 10px;
+}
+
+.turma-item p {
+    margin-bottom: 8px;
+}
+
+/* Histórico */
+.lista-historico {
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+.historico-item {
+    background-color: white;
+    padding: 18px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    border-left: 4px solid #2E86AB;
+    border-radius: 6px;
+    width: 302px;
+    float: left;
+    min-height: 195px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.historico-item:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+}
+
+.historico-item h3 {
+    color: #2E86AB;
+    margin-bottom: 10px;
+}
+
+.historico-item p {
+    margin-bottom: 8px;
+}
+
+.percentual-excelente {
+    color: #4caf50;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.percentual-bom {
+    color: #4caf50;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.percentual-atencao {
+    color: #ff9800;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.percentual-perigo {
+    color: #f44336;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.status-ok {
+    color: #4caf50;
+    font-weight: bold;
+}
+
+.status-atencao {
+    color: #ff9800;
+    font-weight: bold;
+}
+
+.status-perigo {
+    color: #f44336;
+    font-weight: bold;
+}
+
+.info-limite {
+    margin-top: 30px;
+    padding: 15px;
+    background-color: #fff9e6;
+    border-left: 4px solid #ff9800;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* Marcar Presença */
+.container-presenca {
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+.form-presenca {
+    width: 480px;
+    float: left;
+    margin-right: 30px;
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.info-presenca {
+    width: 480px;
+    float: left;
+    padding: 20px;
+    background-color: #e8f4f8;
+    border-left: 4px solid #2E86AB;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.info-presenca h3 {
+    color: #2E86AB;
+    margin-bottom: 15px;
+}
+
+.info-presenca ul {
+    margin-left: 30px;
+}
+
+.info-presenca li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.bem-vindo {
+    text-align: center;
+    padding: 40px;
+}
+
+.bem-vindo h2 {
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+

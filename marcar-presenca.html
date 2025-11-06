@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marcar Presença - UniClass</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container-dashboard">
+        <header class="header-dashboard">
+            <div class="logo-dashboard">
+                <h1>UniClass</h1>
+            </div>
+            <div class="usuario-info">
+                <span>Aluno: João Silva</span>
+            </div>
+        </header>
+        
+        <div class="conteudo-principal">
+            <aside class="sidebar">
+                <nav class="menu-lateral">
+                    <ul>
+                        <li><a href="atividades.html">Atividades</a></li>
+                        <li><a href="turmas.html">Minhas Turmas</a></li>
+                        <li><a href="historico.html">Histórico de Presença</a></li>
+                        <li><a href="marcar-presenca.html" class="ativo">Marcar Presença</a></li>
+                        <li><a href="index.html">Sair</a></li>
+                    </ul>
+                </nav>
+            </aside>
+            
+            <main class="main-dashboard">
+                <h2>Marcar Presença</h2>
+                <p>Insira o código disponibilizado pelo professor para confirmar sua presença:</p>
+                
+                <div class="container-presenca">
+                    <div class="form-presenca">
+                        <form action="#" method="get">
+                            <div class="campo-form">
+                                <label for="codigo-presenca">Código de Presença:</label>
+                                <input type="text" id="codigo-presenca" name="codigo-presenca" placeholder="Digite o código aqui" required>
+                            </div>
+                            
+                            <div class="campo-form">
+                                <label for="disciplina-presenca">Disciplina:</label>
+                                <select id="disciplina-presenca" name="disciplina-presenca">
+                                    <option value="">Selecione a disciplina</option>
+                                    <option value="calculo1">Cálculo 1</option>
+                                    <option value="gpn">GPN</option>
+                                    <option value="algebra">Álgebra Linear</option>
+                                    <option value="tecnicas">Técnicas de Programação</option>
+                                    <option value="ilc">ILC</option>
+                                    <option value="fgo">FGO</option>
+                                    <option value="pi1">Projeto Integrador 1</option>
+                                </select>
+                            </div>
+                            
+                            <button type="submit" class="botao botao-marcar">Marcar Presença</button>
+                        </form>
+                    </div>
+                    
+                    <div class="info-presenca">
+                        <h3>Informações Importantes:</h3>
+                        <ul>
+                            <li>O código de presença é fornecido pelo professor durante a aula</li>
+                            <li>O código é válido apenas durante o horário da aula</li>
+                            <li>Você só pode marcar presença uma vez por aula</li>
+                            <li>Certifique-se de selecionar a disciplina correta</li>
+                        </ul>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>
+
