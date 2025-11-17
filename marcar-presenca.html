@@ -34,12 +34,10 @@
                 <h2>Marcar Presença</h2>
                 <p>Insira o código disponibilizado pelo professor para confirmar sua presença:</p>
 
-                <div class="popup" id="popupAviso">
+                <div class="popup hidden" id="popupAviso">
                     <div class="popup-content">
                         <h3>Presença Registrada!</h3>
-                        <a href="marcar-presenca.html">
-                            <button class="secondary">Fechar</button>
-                        </a>
+                        <button class="close fechar">Fechar</button>
                     </div>
                 </div>
                 
@@ -64,10 +62,9 @@
                                     <option value="pi1">Projeto Integrador 1</option>
                                 </select>
                             </div>
-                            
-                            <a href="#popupAviso">
-                                <button type="button" class="botao botao-marcar">Marcar Presença</button>
-                            </a>
+                            <button href="#" type="button" class="botao botao-marcar" data-target="#popupAviso">
+                                Marcar Presença
+                            </button>
 
                             
                         </form>
@@ -87,6 +84,7 @@
             </main>
         </div>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>
 
