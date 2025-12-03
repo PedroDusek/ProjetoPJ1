@@ -121,20 +121,29 @@ function formatNameFromEmail(email) {
 /*Define o nome do aluno em vários elementos da página.*/
 function setAlunoNameFromEmail() {
     const email = localStorage.getItem('userEmail');
+    const tipo = localStorage.getItem('userType'); // aluno ou professor
+
     if (!email) {
         console.warn('E-mail do usuário não encontrado no localStorage. O nome não será exibido.');
         return;
     }
-    
+
     const nome = formatNameFromEmail(email);
     if (!nome) return;
 
+    let prefixo = "";
+    if (tipo === "professor") {
+        prefixo = "Professor: ";
+    } else {
+        prefixo = "Aluno: ";
+    }
+
     document.querySelectorAll('.usuario-info span').forEach(span => {
-        span.textContent = 'Aluno: ' + nome;
+        span.textContent = prefixo + nome;
     });
 
     document.querySelectorAll('.bem-vindo').forEach(el => {
-        el.textContent = 'Bem-vindo, ' + nome;
+        el.textContent = 'Bem-vindo, ' + nome.replace(prefixo, '');
     });
 
     document.querySelectorAll('.user-name').forEach(el => {
@@ -146,7 +155,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Tenta atualizar o nome no carregamento (útil para a dashboard.html)
     setAlunoNameFromEmail();
 
-    // Configuração de SUBMIT do Formulário de Login (útil para a login.html)
     const loginForm = document.querySelector('form');
     const emailInput = document.getElementById('email');
 
@@ -155,14 +163,176 @@ document.addEventListener('DOMContentLoaded', () => {
             const userEmail = emailInput.value.trim();
 
             if (userEmail) {
-                // Salva o e-mail no localStorage ANTES de enviar o usuário para a dashboard
                 localStorage.setItem('userEmail', userEmail);
                 console.log('E-mail salvo no localStorage para persistência:', userEmail);
             } else {
-                // Se o campo for vazio, o preventDefault é chamado para impedir o redirecionamento
                 alert('Por favor, insira seu e-mail.');
                 event.preventDefault();
             }
         });
     }
 });
+
+
+/*  TELAS DO PROFESSOR  */
+
+document.querySelector("form").addEventListener("submit", function(event) {
+    event.preventDefault(); 
+
+    const email = document.getElementById("email").value.trim();
+    const tipo = document.getElementById("tipo-usuario").value;
+
+    if (!email) {
+        alert("Digite o email!");
+        return;
+    }
+
+    localStorage.setItem("userEmail", email);
+    localStorage.setItem("userType", tipo);
+
+    if (tipo === "aluno") {
+        window.location.href = "dashboard.html";
+    } else if (tipo === "professor") {
+        window.location.href = "dashboardprofessor.html";
+    }
+});
+
+
+
+/* QUIZ */
+
+    let perguntaCount = 0;
+
+    /**
+     * Adiciona um novo bloco de pergunta ao formulário.
+     */
+    function adicionarPergunta() {
+        perguntaCount++;
+        const form = document.getElementById('quiz-form');
+        const perguntaId = `pergunta-${perguntaCount}`;
+
+        const novoBloco = document.createElement('div');
+        novoBloco.classList.add('quiz-card-pergunta');
+        novoBloco.id = perguntaId;
+        
+        // --- INÍCIO DO HTML INJETADO ---
+        novoBloco.innerHTML = `
+            <hr style="margin-top: 0; margin-bottom: 25px; border-top: 2px solid #FFD700;">
+            <h4 style="color: #2E86AB; font-weight: 900;">QUESTÃO ${perguntaCount}</h4>
+
+            <div class="campo-form">
+                <label for="pergunta-texto-${perguntaCount}">Texto da Questão (Pergunta Central)</label>
+                <textarea id="pergunta-texto-${perguntaCount}" rows="3" placeholder="O que você quer perguntar?" required></textarea>
+            </div>
+
+            <div class="campo-form">
+                <label for="pergunta-imagem-${perguntaCount}">Adicionar Mídia (Imagem/Vídeo - Opcional)</label>
+                <input type="file" id="pergunta-imagem-${perguntaCount}" accept="image/*,video/*">
+            </div>
+            
+            <div class="campo-form" style="max-width: 250px;">
+                <label for="tempo-limite-${perguntaCount}">⏱️ Tempo Limite (Segundos)</label>
+                <input type="number" id="tempo-limite-${perguntaCount}" value="30" min="5" max="300" required>
+            </div>
+            
+            <h5 style="margin-bottom: 20px; color: #444; font-weight: 700;">Selecione a Opção Correta:</h5>
+            
+            <div class="opcoes-container" id="opcoes-container-${perguntaCount}">
+                <div class="opcao-item" onclick="selecionarOpcao(this, event)">
+                    <input type="radio" name="resposta-correta-${perguntaCount}" id="correta-1-${perguntaCount}" value="1" required>
+                    <label for="correta-1-${perguntaCount}"> A</label>
+                    <input type="text" placeholder="Digite o texto da Opção A" required>
+                </div>
+                <div class="opcao-item" onclick="selecionarOpcao(this, event)">
+                    <input type="radio" name="resposta-correta-${perguntaCount}" id="correta-2-${perguntaCount}" value="2">
+                    <label for="correta-2-${perguntaCount}"> B</label>
+                    <input type="text" placeholder="Digite o texto da Opção B" required>
+                </div>
+                <div class="opcao-item" onclick="selecionarOpcao(this, event)">
+                    <input type="radio" name="resposta-correta-${perguntaCount}" id="correta-3-${perguntaCount}" value="3">
+                    <label for="correta-3-${perguntaCount}"> C</label>
+                    <input type="text" placeholder="Digite o texto da Opção C">
+                </div>
+                <div class="opcao-item" onclick="selecionarOpcao(this, event)">
+                    <input type="radio" name="resposta-correta-${perguntaCount}" id="correta-4-${perguntaCount}" value="4">
+                    <label for="correta-4-${perguntaCount}"> D</label>
+                    <input type="text" placeholder="Digite o texto da Opção D">
+                </div>
+            </div>
+            
+            <div class="botoes-acao">
+                <button type="button" class="botao botao-remover" onclick="removerPergunta('${perguntaId}')">Excluir Questão ${perguntaCount}</button>
+            </div>
+        `;
+        // --- FIM DO HTML INJETADO ---
+        
+        form.appendChild(novoBloco);
+        // Faz o scroll para a nova pergunta
+        novoBloco.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    /**
+     * NOVA FUNÇÃO: Seleciona o rádio button quando o item pai é clicado.
+     * @param {HTMLElement} elementoOpcao - O elemento .opcao-item que foi clicado.
+     * @param {Event} event - O objeto Event do clique.
+     */
+    function selecionarOpcao(elementoOpcao, event) {
+        const radio = elementoOpcao.querySelector('input[type="radio"]');
+        const inputTexto = elementoOpcao.querySelector('input[type="text"]');
+        
+        // Se o clique for diretamente no INPUT DE TEXTO, não forçamos o rádio,
+        // pois o usuário pode estar querendo editar o texto.
+        const isClickedOnText = event.target === inputTexto;
+
+        if (radio && !isClickedOnText) {
+            radio.checked = true;
+        }
+    }
+
+
+    /**
+     * Remove um bloco de pergunta.
+     */
+    function removerPergunta(id) {
+        const elemento = document.getElementById(id);
+        if (elemento && confirm('Tem certeza que deseja remover esta questão?')) {
+            elemento.remove();
+        }
+    }
+
+    /**
+     * Simula o salvamento dos dados do quiz.
+     */
+    function salvarQuiz() {
+        const titulo = document.getElementById('titulo-quiz').value;
+        const perguntas = document.querySelectorAll('.quiz-card-pergunta').length;
+
+        if (!titulo || perguntas === 0) {
+            alert("Por favor, preencha o título e adicione pelo menos uma questão.");
+            return;
+        }
+
+        console.log("Coletando dados do quiz...");
+        
+        alert(`Quiz "${titulo}" pronto! Iniciando processo de publicação...`);
+    }
+
+    // Adiciona a primeira pergunta ao carregar a página
+    document.addEventListener('DOMContentLoaded', () => {
+         // Corrigir HTML injetado para incluir o onclick
+         adicionarPergunta = (function(originalFunc) {
+            return function() {
+                originalFunc.apply(this, arguments);
+                
+                // Adiciona o listener de clique dinamicamente para garantir a funcionalidade
+                document.querySelectorAll('.opcao-item:not([data-listener])').forEach(item => {
+                    item.addEventListener('click', function(event) {
+                        selecionarOpcao(this, event);
+                    });
+                    item.setAttribute('data-listener', 'true'); // Marca como já configurado
+                });
+            };
+        })(adicionarPergunta);
+        
+        adicionarPergunta();
+    });

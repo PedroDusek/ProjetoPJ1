@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Novo Quiz</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-dashboard">
+        <header class="header-dashboard">
+            <div class="logo-dashboard">
+                <h1>UniClass</h1>
+            </div>
+            <div class="usuario-info">
+                <span class="usuario-info">Professor: Pedro Daniel</span>
+            </div>
+        </header>
+        
+        <div class="conteudo-principal">
+            <div id="sidebar-container"></div>
+            
+            <main class="main-dashboard">
+                <div class="quiz-form-container">
+                    <h2>Editor de Quiz (Estilo Kahoot!)</h2>
+
+                    <div class="quiz-card">
+                        <h3>Informações do Quiz</h3>
+                        <div class="campo-form">
+                            <label for="titulo-quiz">Título do Quiz</label>
+                            <input type="text" id="titulo-quiz" placeholder="Título Excitante" required>
+                        </div>
+                        <div class="campo-form">
+                            <label for="descricao-quiz">Descrição (Opcional)</label>
+                            <textarea id="descricao-quiz" rows="2" placeholder="Breve descrição."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="quiz-card">
+                        <h3>Adicionar Questões</h3>
+                        <form id="quiz-form">
+                            </form>
+
+                        <div class="botoes-acao" style="justify-content: flex-start;">
+                            <button class="botao botao-adicionar" onclick="adicionarPergunta()">➕ Adicionar Nova Questão</button>
+                            <button class="botao botao-salvar" onclick="salvarQuiz()">💾 Publicar Quiz</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    </div>
+<script src="script.js"></script>
+<script src="layout.js"></script>
+</body>
+</html>
