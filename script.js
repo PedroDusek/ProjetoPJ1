@@ -508,7 +508,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <aside class="sidebar">
         <nav class="menu-lateral">
             <ul>
-                <li><a href="atividades.html">Atividades</a></li>
+                <li><a href="atividadesprofessor.html">Atividades</a></li>
                 <li><a href="turmasprofessor.html">Minhas Turmas</a></li>
                 <li><a href="presencaprofessor.html">Gerenciar Presença</a></li>
                 <li><a href="quizprofessor.html">Criar Quiz</a></li>
