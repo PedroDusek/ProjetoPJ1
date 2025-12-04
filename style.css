@@ -716,6 +716,7 @@ body {
 
 
 .hidden { display: none !important; }
+
 .popup {
   position: fixed;
   inset: 0;
@@ -1087,11 +1088,8 @@ hr {
     background-color: #fcfcfc;
     border: 1px solid #e0e0e0;
     border-radius: 4px;
-    
     min-height: 80px; 
     max-height: 80px;
-    
-    /* Configuração Flex para o Conteúdo */
     display: flex; 
     justify-content: space-between; 
     align-items: center; 
