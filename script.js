@@ -133,52 +133,83 @@ document.querySelectorAll('.form-atividade input').forEach(campo => {
 
 /* CAMPO QUIZ ALUNO */
 
-document.querySelectorAll('.botao-codigo').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        if (btn.disabled) return;
+function validarBotaoCodigo() {
+    document.querySelectorAll('.botao-codigo').forEach(btn => {
         const form = btn.closest('.form-atividade');
         const input = form?.querySelector('input[type="text"], input[type="number"]');
-        const codigo = input ? input.value.trim() : '';
-        const campoQuiz = document.getElementById('campo-quiz');
-        if (codigo && campoQuiz) {
-            // Simula o carregamento do quiz
-            campoQuiz.innerHTML = `
-                <h3>Quiz Carregado!</h3>
-                <p>Você inseriu o código: <strong>${codigo}</strong></p>
-                <p>Aqui estaria o conteúdo do quiz para o aluno responder.</p>
-            `;
+
+        if (input) {
+            const temCodigo = input.value.trim().length > 0;
+
+            if (temCodigo) {
+                btn.disabled = false;
+                btn.style.opacity = '1';
+                btn.style.cursor = 'pointer';
+            } else {
+                btn.disabled = true;
+                btn.style.opacity = '0.5';
+                btn.style.cursor = 'not-allowed';
+            }
         }
     });
+}
+
+validarBotaoCodigo(); // Chamar validação ao carregar
+
+document.querySelectorAll('.form-atividade input').forEach(campo => {
+    campo.addEventListener('input', validarBotaoCodigo);
+    campo.addEventListener('change', validarBotaoCodigo);
 });
 
-// Simulação dos dados do quiz fornecidos pelo professor
-// Na vida real, estes dados viriam de uma API após enviar o código
-const QUIZ_DATA = {
-    "HISTORIA101": {
-        title: "Revolução Industrial",
-        description: "Quiz sobre a primeira fase da Revolução Industrial.",
-        questions: [
-            {
-                number: 1,
-                text: "Qual a principal invenção que impulsionou a Revolução Industrial?",
-                options: ["Motor a diesel", "Máquina a vapor", "Eletricidade"],
-                name: "q1"
-            },
-            {
-                number: 2,
-                text: "Qual país é considerado o berço da Revolução Industrial?",
-                options: ["França", "Alemanha", "Reino Unido"],
-                name: "q2"
-            }
-        ]
-    },
-    // Você pode adicionar outros códigos e quizzes aqui
-    "GEOGRAFIA202": {
-        title: "Geografia dos Biomas",
-        questions: [ /* ... */ ]
+/* CAMPO QUIZ ALUNO */
+// Mostrar o quiz quando o código for confirmado
+function mostrarQuiz() {
+    const quiz = document.getElementById("quiz");
+    const resultado = document.getElementById("resultado");
+
+    quiz.classList.remove("hidden");
+    resultado.classList.add("hidden");
+}
+
+// Corrigir respostas
+function corrigir() {
+    const respostas = {
+        q1: "HTML",
+        q2: "MySQL",
+        q3: "Cascading Style Sheets"
+    };
+
+    let score = 0;
+
+    for (let q in respostas) {
+        const marcada = document.querySelector(`input[name="${q}"]:checked`);
+        if (marcada && marcada.value === respostas[q]) {
+            score++;
+        }
     }
-};
+
+    const quiz = document.getElementById("quiz");
+    const resultado = document.getElementById("resultado");
+    const textoResultado = document.getElementById("texto-resultado");
+
+    textoResultado.textContent = `Você acertou ${score} de 3 perguntas.`;
+
+    resultado.classList.remove("hidden");
+    quiz.classList.add("hidden");
+}
+
+// Fechar resultado
+function fecharResultado() {
+    const resultado = document.getElementById("resultado");
+    resultado.classList.add("hidden");
+}
+
+// Listener do botão "Confirmar código"
+document.querySelector(".botao-codigo").addEventListener("click", mostrarQuiz);
+
+// Listener do botão "Fechar"
+document.getElementById("fechar-resultado").addEventListener("click", fecharResultado);
+
 
 /**
  * Função principal chamada ao clicar no botão "Confirmar código".
