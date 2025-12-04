@@ -34,7 +34,7 @@
                                 <input type="text" id="codigo-atividade" name="codigo-atividade" placeholder="Digite o código aqui" required>
                             </div>
                             
-                            <button href="#" type="button" class="botao botao-codigo" data-target="#popupAviso">
+                            <button href="#" type="button" class="botao botao-codigo" onclick="checkAndLoadQuiz()">
                                 Confirmar código
                             </button>
                         </form>
@@ -47,6 +47,9 @@
                             <li>Depois que entrar na atividade não feche, você pode perder suas respostas </li>
                             <li>Certifique-se de inserir o código correto</li>
                         </ul>
+                    </div>
+                    <div class="campo" id="campo-quiz">
+                        <!-- O quiz será carregado aqui via JavaScript após a confirmação do código -->
                     </div>
                 </div>
             </main>

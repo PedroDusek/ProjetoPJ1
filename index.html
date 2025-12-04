@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UniClass - Início</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="container-inicial">
         <header class="header-inicial">
@@ -13,94 +15,24 @@
                 <h1>UniClass</h1>
             </div>
         </header>
-        
+
         <main class="main-inicial">
             <div class="conteudo-central">
                 <h2>Bem-vindo à UniClass</h2>
                 <p>A plataforma de ensino pensada especialmente para você, aluno da UNIRIO.</p>
-                
+
                 <div class="botoes-inicial">
                     <a href="login.html" class="botao botao-login">Login</a>
                     <a href="sobre.html" class="botao botao-sobre">Sobre Nós</a>
                 </div>
             </div>
         </main>
-        
+
         <footer class="footer-inicial">
             <p>&copy; 2025 UniClass - Todos os direitos reservados</p>
         </footer>
     </div>
-    <form id="login-form" action="dashboard.html" method="post">
-        <input type="email" id="email" name="email" required>
-    </form>
-    <script>
-        
-    /*Converte email em nome legível (Versão Robusta)*/
-    function formatNameFromEmail(email) {
-        // 1. Validação básica
-        if (typeof email !== 'string' || !email.includes('@')) {
-            return null;
-        }
-
-        // 2. Extrai a parte local e limpa separadores (. _ -)
-        const localPart = email.split('@')[0].trim();
-        if (!localPart) {
-            return null;
-        }
-        
-        // Usa RegExp para substituir TODAS as ocorrências de separadores por um único espaço
-        const cleaned = localPart
-            .replace(/[._\-]+/g, ' ') // Substitui . _ - por espaço
-            .replace(/\s+/g, ' ')     // Compacta múltiplos espaços
-            .trim()
-            .toLowerCase();
-
-        if (!cleaned) { return null; }
-
-        // 3. Capitaliza cada palavra (Title Case)
-        const parts = cleaned.split(' ');
-        
-        const formattedName = parts.map(p => {
-            if (p.length === 0) return '';
-            return p.charAt(0).toUpperCase() + p.slice(1);
-        }).join(' ');
-
-        return formattedName;
-    }
-
-    // Função para definir o nome do aluno com base no e-mail
-    function setAlunoNameFromEmail() {
-        // Tenta buscar no localStorage primeiro, depois na variável global (se for o caso)
-        // Recomendamos fortemente usar localStorage para persistência.
-        const email = localStorage.getItem('userEmail') || window.USER_EMAIL || ''; 
-
-        if (!email) {
-            console.warn('E-mail do usuário não encontrado. Não é possível exibir o nome.');
-            return;
-        }
-
-        const nomeFormatado = formatNameFromEmail(email);
-        
-        if (!nomeFormatado) {
-            console.error('Falha ao formatar nome a partir do e-mail:', email);
-            return;
-        }
-
-        const usuarioInfoSpan = document.querySelector('.usuario-info span');
-        if (usuarioInfoSpan) {
-            usuarioInfoSpan.textContent = 'Aluno: ' + nomeFormatado;
-        }
-
-        document.querySelectorAll('.bem-vindo').forEach(el => {
-        el.textContent = 'Bem-vindo, ' + nome;
-        });
-    }
-
-    // Chamar a função ao carregar a página
-    document.addEventListener('DOMContentLoaded', setAlunoNameFromEmail); 
-</script> 
-</script>
     <script src="script.js"></script>
 </body>
-</html>
 
+</html>

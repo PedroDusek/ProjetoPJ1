@@ -26,6 +26,7 @@ const sidebarAlunoHTML = `
                 <li><a href="turmas.html">Minhas Turmas</a></li>
                 <li><a href="historico.html">Meu Histórico de Presença</a></li>
                 <li><a href="marcar-presenca.html">Marcar Presença</a></li>
+                <li><a href="quiz.html">Realizar Quiz</a></li>
                 <li><a href="index.html">Sair</a></li>
             </ul>
         </nav>
