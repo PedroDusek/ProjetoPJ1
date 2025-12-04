@@ -477,7 +477,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         console.log("Coletando dados do quiz...");
         
-        alert(`Quiz "${titulo}" pronto! Iniciando processo de publicação...`);
+        alert(`Quiz "${titulo}" pronto! Seu código de quiz é #34458. Iniciando processo de publicação...`);
     }
 
     // Adiciona a primeira pergunta ao carregar a página
