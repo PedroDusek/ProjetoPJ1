@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz - UniClass</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="container-dashboard">
         <header class="header-dashboard">
@@ -16,11 +18,58 @@
                 <span class="usuario-info">Aluno: Pedro Daniel</span>
             </div>
         </header>
-        
+
         <div class="conteudo-principal">
             <div id="sidebar-container"></div>
-            
+
+
             <main class="main-dashboard">
+
+                <p class="resultado hidden" id="resultado">
+                    <span id="texto-resultado"></span>
+                    <br>
+                    <button class="fechar-resultado" id="fechar-resultado">Fechar</button>
+                </p>
+
+
+                <div class="quiz-popup hidden" id="quiz">
+
+
+                    <form id="quiz">
+
+                        <h1>Quiz Rápido</h1>
+
+                        <div class="question">
+                            <p>1. Qual linguagem é usada para estruturar páginas web?</p>
+                            <label><input type="radio" name="q1" value="HTML"> HTML</label><br>
+                            <label><input type="radio" name="q1" value="Python"> Python</label><br>
+                            <label><input type="radio" name="q1" value="C++"> C++</label>
+                        </div>
+
+                        <div class="question">
+                            <p>2. Qual desses é um banco de dados?</p>
+                            <label><input type="radio" name="q2" value="MySQL"> MySQL</label><br>
+                            <label><input type="radio" name="q2" value="React"> React</label><br>
+                            <label><input type="radio" name="q2" value="Figma"> Figma</label>
+                        </div>
+
+                        <div class="question">
+                            <p>3. O que significa CSS?</p>
+                            <label><input type="radio" name="q3" value="Cascading Style Sheets"> Cascading Style
+                                Sheets</label><br>
+                            <label><input type="radio" name="q3" value="Computer System Service"> Computer System
+                                Service</label><br>
+                            <label><input type="radio" name="q3" value="Creative Software Suite"> Creative Software
+                                Suite</label>
+                        </div>
+
+                        <button class="enviar-quiz" type="button" onclick="corrigir()">Enviar</button>
+
+                    </form>
+
+
+                </div>
+
                 <h2>Quiz</h2>
                 <p>
                     Insira o código disponibilizado pelo professor para acessar o quiz:
@@ -31,10 +80,11 @@
                         <form action="#" method="get">
                             <div class="campo-form">
                                 <label for="codigo-atividade">Código da Atividade:</label>
-                                <input type="text" id="codigo-atividade" name="codigo-atividade" placeholder="Digite o código aqui" required>
+                                <input type="text" id="codigo-atividade" name="codigo-atividade"
+                                    placeholder="Digite o código aqui" required>
                             </div>
-                            
-                            <button href="#" type="button" class="botao botao-codigo" onclick="checkAndLoadQuiz()">
+
+                            <button href="#" type="button" class="botao botao-codigo" onclick="toglehidden">
                                 Confirmar código
                             </button>
                         </form>
@@ -49,7 +99,6 @@
                         </ul>
                     </div>
                     <div class="campo" id="campo-quiz">
-                        <!-- O quiz será carregado aqui via JavaScript após a confirmação do código -->
                     </div>
                 </div>
             </main>
@@ -57,4 +106,5 @@
     </div>
     <script src="script.js"></script>
 </body>
+
 </html>
