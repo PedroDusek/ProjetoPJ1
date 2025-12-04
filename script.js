@@ -1,5 +1,3 @@
-
-// Toggle de detalhes de atividade
 document.querySelectorAll('.botao-pequeno').forEach(btn => {
     btn.addEventListener('click', (e) => {
         e.preventDefault();
@@ -13,7 +11,6 @@ document.querySelectorAll('.botao-pequeno').forEach(btn => {
     });
 });
 
-// Funções de controle de Popup
 function openPopup(popup) {
     if (!popup) return;
     popup.classList.remove('hidden');
@@ -25,7 +22,6 @@ function closePopup(popup) {
     popup.classList.add('hidden');
 }
 
-// Lógica de limpeza e revalidação do formulário de presença (usado nos listeners)
 function cleanAndRevalidateForm() {
     const form = document.querySelector('.form-presenca');
     if (form) {
@@ -34,11 +30,10 @@ function cleanAndRevalidateForm() {
         const select = form.querySelector('select');
         if (input) input.value = '';
         if (select) select.value = '';
-        validarBotaoMarcar(); // revalidar após limpar
+        validarBotaoMarcar();
     }
 }
 
-// Função para validar e atualizar estado do botão (Presença)
 function validarBotaoMarcar() {
     document.querySelectorAll('.botao-marcar').forEach(btn => {
         const form = btn.closest('.form-presenca');
@@ -62,8 +57,7 @@ function validarBotaoMarcar() {
     });
 }
 
-// Listeners de validação e eventos de Popup
-validarBotaoMarcar(); // Chamar validação ao carregar
+validarBotaoMarcar();
 
 document.querySelectorAll('.form-presenca input, .form-presenca select').forEach(campo => {
     campo.addEventListener('input', validarBotaoMarcar);
@@ -158,8 +152,6 @@ document.querySelectorAll('.botao-codigo').forEach(btn => {
     });
 });
 
-// Simulação dos dados do quiz fornecidos pelo professor
-// Na vida real, estes dados viriam de uma API após enviar o código
 const QUIZ_DATA = {
     "HISTORIA101": {
         title: "Revolução Industrial",
@@ -179,34 +171,27 @@ const QUIZ_DATA = {
             }
         ]
     },
-    // Você pode adicionar outros códigos e quizzes aqui
+
     "GEOGRAFIA202": {
         title: "Geografia dos Biomas",
         questions: [ /* ... */ ]
     }
 };
 
-/**
- * Função principal chamada ao clicar no botão "Confirmar código".
- */
 function checkAndLoadQuiz() {
     const codeInput = document.getElementById('codigo-atividade');
     const quizCode = codeInput.value.trim().toUpperCase(); // Pega o valor e padroniza
 
     const quiz = QUIZ_DATA[quizCode];
-    
-    // 1. VERIFICAÇÃO DO CÓDIGO
+
     if (quiz) {
-        // 2. CARREGAMENTO E RENDERIZAÇÃO
         renderQuiz(quiz);
 
-        // Oculta a área de inserção do código e informações importantes
         document.querySelector('.conteudo-quiz > .form-atividade').style.display = 'none';
         document.querySelector('.conteudo-quiz > .info-presenca').style.display = 'none';
         
     } else {
         alert("🚨 Código do Quiz inválido ou expirado. Verifique com o professor.");
-        // Opcional: Limpar o campo
         codeInput.value = ''; 
     }
 }
@@ -223,7 +208,6 @@ function renderQuiz(quiz) {
         <form id="quiz-form">
     `;
 
-    // Itera sobre as perguntas
     quiz.questions.forEach(q => {
         htmlContent += `
             <div class="question-block" style="margin-bottom: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 5px;">
@@ -231,7 +215,6 @@ function renderQuiz(quiz) {
                 <div class="options-group">
         `;
 
-        // Itera sobre as opções de múltipla escolha
         q.options.forEach((option, index) => {
             const radioId = `${q.name}_${index}`; // Ex: q1_0, q1_1, etc.
             htmlContent += `
@@ -246,7 +229,6 @@ function renderQuiz(quiz) {
         `;
     });
 
-    // Adiciona o botão de envio
     htmlContent += `
         <button type="button" class="botao botao-enviar" onclick="submitQuiz()">
             Enviar Respostas
@@ -254,25 +236,18 @@ function renderQuiz(quiz) {
         </form>
     `;
 
-    // Insere o conteúdo dinâmico na área do quiz
     quizArea.innerHTML = htmlContent;
 }
 
-/**
- * Função para lidar com o envio das respostas.
- */
 function submitQuiz() {
-    // Nesta função, você deve coletar os dados do formulário
     const form = document.getElementById('quiz-form');
     const formData = new FormData(form);
     
     const results = {};
     let isComplete = true;
 
-    // Converte os dados para um objeto para fácil visualização/envio
     for (const [key, value] of formData.entries()) {
         results[key] = value;
-        // Se a chave começar com 'q' (pergunta), garantimos que foi respondida
         if (key.startsWith('q') && !value) {
             isComplete = false;
         }
@@ -284,19 +259,10 @@ function submitQuiz() {
     }
 
     console.log("Respostas coletadas:", results);
-    
-    // Na vida real, você usaria 'fetch' para enviar 'results' para o servidor
-    // Exemplo: fetch('/api/submit-quiz', { method: 'POST', body: JSON.stringify(results) });
 
     alert("✅ Quiz enviado com sucesso! Aguarde a correção do professor.");
-
-    // Opcional: Recarregar a página ou voltar para a tela inicial
-    // window.location.reload(); 
 }
 
-/* funçao para extrair email e alterar nome do aluno */
-
-/*Converte email em nome legível */
 function formatNameFromEmail(email) {
     if (typeof email !== 'string' || !email.includes('@')) return null;
     const local = email.split('@')[0].trim() || '';
@@ -305,10 +271,10 @@ function formatNameFromEmail(email) {
     return parts.map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(' ');
 }
 
-/*Define o nome do aluno em vários elementos da página.*/
+
 function setAlunoNameFromEmail() {
     const email = localStorage.getItem('userEmail');
-    const tipo = localStorage.getItem('userType'); // aluno ou professor
+    const tipo = localStorage.getItem('userType');
 
     if (!email) {
         console.warn('E-mail do usuário não encontrado no localStorage. O nome não será exibido.');
@@ -339,7 +305,6 @@ function setAlunoNameFromEmail() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Tenta atualizar o nome no carregamento (útil para a dashboard.html)
     setAlunoNameFromEmail();
 
     const loginForm = document.querySelector('form');
@@ -366,9 +331,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let perguntaCount = 0;
 
-    /**
-     * Adiciona um novo bloco de pergunta ao formulário.
-     */
     function adicionarPergunta() {
         perguntaCount++;
         const form = document.getElementById('quiz-form');
@@ -377,8 +339,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const novoBloco = document.createElement('div');
         novoBloco.classList.add('quiz-card-pergunta');
         novoBloco.id = perguntaId;
-        
-        // --- INÍCIO DO HTML INJETADO ---
+
         novoBloco.innerHTML = `
             <hr style="margin-top: 0; margin-bottom: 25px; border-top: 2px solid #FFD700;">
             <h4 style="color: #2E86AB; font-weight: 900;">QUESTÃO ${perguntaCount}</h4>
@@ -427,8 +388,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 <button type="button" class="botao botao-remover" onclick="removerPergunta('${perguntaId}')">Excluir Questão ${perguntaCount}</button>
             </div>
         `;
-        // --- FIM DO HTML INJETADO ---
-        
         form.appendChild(novoBloco);
         // Faz o scroll para a nova pergunta
         novoBloco.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -452,10 +411,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-
-    /**
-     * Remove um bloco de pergunta.
-     */
     function removerPergunta(id) {
         const elemento = document.getElementById(id);
         if (elemento && confirm('Tem certeza que deseja remover esta questão?')) {
@@ -463,9 +418,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    /**
-     * Simula o salvamento dos dados do quiz.
-     */
     function salvarQuiz() {
         const titulo = document.getElementById('titulo-quiz').value;
         const perguntas = document.querySelectorAll('.quiz-card-pergunta').length;
@@ -480,19 +432,16 @@ document.addEventListener('DOMContentLoaded', () => {
         alert(`Quiz "${titulo}" pronto! Seu código de quiz é #34458. Iniciando processo de publicação...`);
     }
 
-    // Adiciona a primeira pergunta ao carregar a página
     document.addEventListener('DOMContentLoaded', () => {
-         // Corrigir HTML injetado para incluir o onclick
          adicionarPergunta = (function(originalFunc) {
             return function() {
                 originalFunc.apply(this, arguments);
                 
-                // Adiciona o listener de clique dinamicamente para garantir a funcionalidade
                 document.querySelectorAll('.opcao-item:not([data-listener])').forEach(item => {
                     item.addEventListener('click', function(event) {
                         selecionarOpcao(this, event);
                     });
-                    item.setAttribute('data-listener', 'true'); // Marca como já configurado
+                    item.setAttribute('data-listener', 'true');
                 });
             };
         })(adicionarPergunta);
