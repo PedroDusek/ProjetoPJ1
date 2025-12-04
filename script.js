@@ -138,161 +138,54 @@ document.querySelectorAll('.form-atividade input').forEach(campo => {
 });
 
 /* CAMPO QUIZ ALUNO */
+// Mostrar o quiz quando o código for confirmado
+function mostrarQuiz() {
+    const quiz = document.getElementById("quiz");
+    const resultado = document.getElementById("resultado");
 
-document.querySelectorAll('.botao-codigo').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        if (btn.disabled) return;
-        const form = btn.closest('.form-atividade');
-        const input = form?.querySelector('input[type="text"], input[type="number"]');
-        const codigo = input ? input.value.trim() : '';
-        const campoQuiz = document.getElementById('campo-quiz');
-        if (codigo && campoQuiz) {
-            // Simula o carregamento do quiz
-            campoQuiz.innerHTML = `
-                <h3>Quiz Carregado!</h3>
-                <p>Você inseriu o código: <strong>${codigo}</strong></p>
-                <p>Aqui estaria o conteúdo do quiz para o aluno responder.</p>
-            `;
-        }
-    });
-});
-
-// Simulação dos dados do quiz fornecidos pelo professor
-// Na vida real, estes dados viriam de uma API após enviar o código
-const QUIZ_DATA = {
-    "HISTORIA101": {
-        title: "Revolução Industrial",
-        description: "Quiz sobre a primeira fase da Revolução Industrial.",
-        questions: [
-            {
-                number: 1,
-                text: "Qual a principal invenção que impulsionou a Revolução Industrial?",
-                options: ["Motor a diesel", "Máquina a vapor", "Eletricidade"],
-                name: "q1"
-            },
-            {
-                number: 2,
-                text: "Qual país é considerado o berço da Revolução Industrial?",
-                options: ["França", "Alemanha", "Reino Unido"],
-                name: "q2"
-            }
-        ]
-    },
-    // Você pode adicionar outros códigos e quizzes aqui
-    "GEOGRAFIA202": {
-        title: "Geografia dos Biomas",
-        questions: [ /* ... */ ]
-    }
-};
-
-/**
- * Função principal chamada ao clicar no botão "Confirmar código".
- */
-function checkAndLoadQuiz() {
-    const codeInput = document.getElementById('codigo-atividade');
-    const quizCode = codeInput.value.trim().toUpperCase(); // Pega o valor e padroniza
-
-    const quiz = QUIZ_DATA[quizCode];
-    
-    // 1. VERIFICAÇÃO DO CÓDIGO
-    if (quiz) {
-        // 2. CARREGAMENTO E RENDERIZAÇÃO
-        renderQuiz(quiz);
-
-        // Oculta a área de inserção do código e informações importantes
-        document.querySelector('.conteudo-quiz > .form-atividade').style.display = 'none';
-        document.querySelector('.conteudo-quiz > .info-presenca').style.display = 'none';
-        
-    } else {
-        alert("🚨 Código do Quiz inválido ou expirado. Verifique com o professor.");
-        // Opcional: Limpar o campo
-        codeInput.value = ''; 
-    }
+    quiz.classList.remove("hidden");
+    resultado.classList.add("hidden");
 }
 
-/**
- * Renderiza (constrói) o formulário do quiz dinamicamente.
- * @param {object} quiz - O objeto do quiz a ser exibido.
- */
-function renderQuiz(quiz) {
-    const quizArea = document.getElementById('campo-quiz');
-    let htmlContent = `
-        <h3>${quiz.title}</h3>
-        <p>${quiz.description || ""}</p>
-        <form id="quiz-form">
-    `;
+// Corrigir respostas
+function corrigir() {
+    const respostas = {
+        q1: "HTML",
+        q2: "MySQL",
+        q3: "Cascading Style Sheets"
+    };
 
-    // Itera sobre as perguntas
-    quiz.questions.forEach(q => {
-        htmlContent += `
-            <div class="question-block" style="margin-bottom: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 5px;">
-                <h4>${q.number}. ${q.text}</h4>
-                <div class="options-group">
-        `;
+    let score = 0;
 
-        // Itera sobre as opções de múltipla escolha
-        q.options.forEach((option, index) => {
-            const radioId = `${q.name}_${index}`; // Ex: q1_0, q1_1, etc.
-            htmlContent += `
-                <input type="radio" id="${radioId}" name="${q.name}" value="${option}" required>
-                <label for="${radioId}">${option}</label><br>
-            `;
-        });
-
-        htmlContent += `
-                </div>
-            </div>
-        `;
-    });
-
-    // Adiciona o botão de envio
-    htmlContent += `
-        <button type="button" class="botao botao-enviar" onclick="submitQuiz()">
-            Enviar Respostas
-        </button>
-        </form>
-    `;
-
-    // Insere o conteúdo dinâmico na área do quiz
-    quizArea.innerHTML = htmlContent;
-}
-
-/**
- * Função para lidar com o envio das respostas.
- */
-function submitQuiz() {
-    // Nesta função, você deve coletar os dados do formulário
-    const form = document.getElementById('quiz-form');
-    const formData = new FormData(form);
-    
-    const results = {};
-    let isComplete = true;
-
-    // Converte os dados para um objeto para fácil visualização/envio
-    for (const [key, value] of formData.entries()) {
-        results[key] = value;
-        // Se a chave começar com 'q' (pergunta), garantimos que foi respondida
-        if (key.startsWith('q') && !value) {
-            isComplete = false;
+    for (let q in respostas) {
+        const marcada = document.querySelector(`input[name="${q}"]:checked`);
+        if (marcada && marcada.value === respostas[q]) {
+            score++;
         }
     }
 
-    if (!isComplete) {
-        alert("⚠️ Por favor, responda a todas as perguntas antes de enviar.");
-        return;
-    }
+    const quiz = document.getElementById("quiz");
+    const resultado = document.getElementById("resultado");
+    const textoResultado = document.getElementById("texto-resultado");
 
-    console.log("Respostas coletadas:", results);
-    
-    // Na vida real, você usaria 'fetch' para enviar 'results' para o servidor
-    // Exemplo: fetch('/api/submit-quiz', { method: 'POST', body: JSON.stringify(results) });
+    textoResultado.textContent = `Você acertou ${score} de 3 perguntas.`;
 
-    alert("✅ Quiz enviado com sucesso! Aguarde a correção do professor.");
-
-    // Opcional: Recarregar a página ou voltar para a tela inicial
-    // window.location.reload(); 
+    resultado.classList.remove("hidden");
+    quiz.classList.add("hidden");
 }
+
+// Fechar resultado
+function fecharResultado() {
+    const resultado = document.getElementById("resultado");
+    resultado.classList.add("hidden");
+}
+
+// Listener do botão "Confirmar código"
+document.querySelector(".botao-codigo").addEventListener("click", mostrarQuiz);
+
+// Listener do botão "Fechar"
+document.getElementById("fechar-resultado").addEventListener("click", fecharResultado);
+
 
 /* funçao para extrair email e alterar nome do aluno */
 
@@ -499,6 +392,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
         adicionarPergunta();
     });
+
+
+
+    /* LAYOUT DINÂMICO DE SIDEBAR */
 
     const sidebarProfessorHTML = `
     <aside class="sidebar">
