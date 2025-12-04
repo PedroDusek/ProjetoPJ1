@@ -226,8 +226,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-
-
 /* QUIZ PROFESSOR*/
 
 let perguntaCount = 0;
@@ -346,78 +344,22 @@ function salvarQuiz() {
     alert(`Quiz "${titulo}" pronto! Iniciando processo de publicação...`);
 }
 
-// Adiciona a primeira pergunta ao carregar a página
-document.addEventListener('DOMContentLoaded', () => {
-    // Corrigir HTML injetado para incluir o onclick
-    adicionarPergunta = (function (originalFunc) {
-        return function () {
-            originalFunc.apply(this, arguments);
-
-            // Adiciona o listener de clique dinamicamente para garantir a funcionalidade
-            document.querySelectorAll('.opcao-item:not([data-listener])').forEach(item => {
-                item.addEventListener('click', function (event) {
-                    selecionarOpcao(this, event);
+    // Adiciona a primeira pergunta ao carregar a página
+    document.addEventListener('DOMContentLoaded', () => {
+         // Corrigir HTML injetado para incluir o onclick
+         adicionarPergunta = (function(originalFunc) {
+            return function() {
+                originalFunc.apply(this, arguments);
+                
+                // Adiciona o listener de clique dinamicamente para garantir a funcionalidade
+                document.querySelectorAll('.opcao-item:not([data-listener])').forEach(item => {
+                    item.addEventListener('click', function(event) {
+                        selecionarOpcao(this, event);
+                    });
+                    item.setAttribute('data-listener', 'true'); // Marca como já configurado
                 });
-                item.setAttribute('data-listener', 'true'); // Marca como já configurado
-            });
-        };
-    })(adicionarPergunta);
-
-    adicionarPergunta();
-});
-
-const sidebarProfessorHTML = `
-    <aside class="sidebar">
-        <nav class="menu-lateral">
-            <ul>
-                <li><a href="atividades.html">Atividades</a></li>
-                <li><a href="turmasprofessor.html">Minhas Turmas</a></li>
-                <li><a href="presencaprofessor.html">Gerenciar Presença</a></li>
-                <li><a href="quizprofessor.html">Criar Quiz</a></li>
-                <li><a href="index.html">Sair</a></li>
-            </ul>
-        </nav>
-    </aside>
-`;
-
-const sidebarAlunoHTML = `
-    <aside class="sidebar">
-        <nav class="menu-lateral">
-            <ul>
-                <li><a href="atividades.html">Minhas Atividades</a></li>
-                <li><a href="turmas.html">Minhas Turmas</a></li>
-                <li><a href="historico.html">Meu Histórico de Presença</a></li>
-                <li><a href="marcar-presenca.html">Marcar Presença</a></li>
-                <li><a href="quiz.html">Realizar Quiz</a></li>
-                <li><a href="index.html">Sair</a></li>
-            </ul>
-        </nav>
-    </aside>
-`;
-
-
-function carregarLayout(userType) {
-    const sidebarElement = document.getElementById('sidebar-container');
-    const headerElement = document.getElementById('header-container');
-    let htmlParaInjetar = '';
-
-    if (userType === 'professor') {
-        htmlParaInjetar = sidebarProfessorHTML;
-    } else {
-        htmlParaInjetar = sidebarAlunoHTML;
-    }
-
-    if (sidebarElement) {
-        sidebarElement.innerHTML = htmlParaInjetar;
-    }
-
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    const userType = localStorage.getItem('userType');
-
-    carregarLayout(userType);
-
-    setAlunoNameFromEmail();
-
-});
+            };
+        })(adicionarPergunta);
+        
+        adicionarPergunta();
+    });
